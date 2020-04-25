@@ -17,8 +17,10 @@ namespace CFT.NetCore.WebAppDemo
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //Host 宿主
+        //作用: 启动、初始化应用程序，并管理其生命周期
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

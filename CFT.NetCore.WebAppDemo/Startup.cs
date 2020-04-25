@@ -20,7 +20,12 @@ namespace CFT.NetCore.WebAppDemo
         {
             if (env.IsDevelopment())
             {
+                Console.WriteLine("development environment");
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                Console.WriteLine("production environment");
             }
 
             app.UseRouting();
