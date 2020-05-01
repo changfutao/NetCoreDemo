@@ -28,7 +28,7 @@ namespace CFT.NetCore.WebAppDemo.Middlewares
             //输出每一次请求的URL地址
             _logger.LogInformation($"请求地址: {context.Request.Path}");
             //获取每一次请求的HTTPMethod
-            _logger.LogInformation($"请求方法{context.Request.Method}")
+            _logger.LogInformation($"请求方法{context.Request.Method}");
 
             return _next(context);
         }

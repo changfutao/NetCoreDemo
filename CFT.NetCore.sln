@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFT.NetCore.WebAppDemo", "CFT.NetCore.WebAppDemo\CFT.NetCore.WebAppDemo.csproj", "{2985F87B-F5A4-44F4-A033-E2DAF26385C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFT.NetCore.WebAppDemo", "CFT.NetCore.WebAppDemo\CFT.NetCore.WebAppDemo.csproj", "{2985F87B-F5A4-44F4-A033-E2DAF26385C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFT.NetCore.Testing", "CFT.NetCore.Testing\CFT.NetCore.Testing.csproj", "{19E95978-D9EA-4AE8-B727-2F0EFE02E06C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2985F87B-F5A4-44F4-A033-E2DAF26385C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2985F87B-F5A4-44F4-A033-E2DAF26385C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2985F87B-F5A4-44F4-A033-E2DAF26385C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19E95978-D9EA-4AE8-B727-2F0EFE02E06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E95978-D9EA-4AE8-B727-2F0EFE02E06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E95978-D9EA-4AE8-B727-2F0EFE02E06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E95978-D9EA-4AE8-B727-2F0EFE02E06C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

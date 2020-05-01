@@ -1,0 +1,21 @@
+﻿@using CFT.NetCore.WebAppDemo.ViewModels
+@model OperationViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DIIndex</title>
+</head>
+<body>
+    <h1>OperationId</h1>
+    <h2>OperationTransient: @Model.OperationTransient</h2>
+    <h2>OperationScoped: @Model.OperationScoped</h2>
+    <h2>OperationSingleton: @Model.OperationSingleton</h2>
+    <h2>ManualOperation: @Model.ManualOperation</h2>
+</body>
+</html>
