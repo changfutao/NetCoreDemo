@@ -30,6 +30,7 @@ namespace CFT.NetCore.WebAppDemo.Controllers
         /// <returns></returns>
         public IActionResult DIIndex()
         {
+            //RequestServices属性得类型时IServiceProvider,包括GetService()和GetRequiredService(),GetService()当容器不存在指定类型的服务时,会返回null,GetRequiredService()抛出异常
             var operation = HttpContext.RequestServices.GetService<IOperationScoped>();
             var operationViewModel = new OperationViewModel
             {

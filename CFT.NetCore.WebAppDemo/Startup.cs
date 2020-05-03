@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CFT.NetCore.WebAppDemo.Models;
+using Microsoft.AspNetCore.Routing;
 
 namespace CFT.NetCore.WebAppDemo
 {
@@ -126,13 +127,35 @@ namespace CFT.NetCore.WebAppDemo
             //添加静态文件中间件
             app.UseStaticFiles();
 
+            #region 路由
+            ////创建路由处理器
+            //var trackPackageRouteHandler = new RouteHandler(context =>
+            //{
+            //    var routeValues = context.GetRouteData().Values;
+            //    return context.Response.WriteAsync($"Hello! Route values:{string.Join(", ", routeValues)}");
+            //});
+
+            //var routeBuilder = new RouteBuilder(app, trackPackageRouteHandler);
+
+            //routeBuilder.MapRoute("Track Package Route", "package/{operation}/{id:int}");
+            ////MapGet 仅匹配Get方法的请求
+            //routeBuilder.MapGet("hello/{name}", context =>
+            //{
+            //    var name = context.GetRouteValue("name");
+            //    return context.Response.WriteAsync($"Hi,{name}");
+            //});
+
+            //var routes = routeBuilder.Build();
+            //app.UseRouter(routes); 
+            #endregion
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllers();
-                endpoints.MapDefaultControllerRoute();
-                 
+
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

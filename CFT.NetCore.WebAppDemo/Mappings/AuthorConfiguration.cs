@@ -26,17 +26,6 @@ namespace CFT.NetCore.WebAppDemo.Mappings
             builder.HasMany(x => x.Books)
                    .WithOne(x=>x.Author)
                    .HasForeignKey(x =>x.AuthorId);
-
-            //builder.HasData(new List<Author> 
-            //{
-            //    new Author{ Id=Guid.NewGuid(),Name="蒋金楠", BirthDate=new DateTimeOffset(new DateTime(1980,3,10)), BirthPlace="江苏苏州", Email="123@126.com", 
-            //      Books=new List<Book>
-            //     {
-            //        new Book{ Id=Guid.NewGuid(), }
-            //     } 
-            //    },
-            //    new Author{ Id=Guid.NewGuid(),Name="杨万青", BirthDate=new DateTimeOffset(new DateTime(1989,3,10)), BirthPlace="北京", Email="123123@126.com"}
-            //});
         }
     }
 }
