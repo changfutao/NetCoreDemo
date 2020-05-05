@@ -12,6 +12,8 @@ using CFT.NetCore.WebAppDemo.Repository;
 using CFT.NetCore.WebAppDemo.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace CFT.NetCore.WebAppDemo.Controllers
 {
@@ -116,13 +118,19 @@ namespace CFT.NetCore.WebAppDemo.Controllers
         /// <returns></returns>
         [Route("GetAuthorPage")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuthorViewModel>>> GetAuthorPage([FromQuery]AuthorResourceParameters parameters)
+        public async Task<PagedList<AuthorViewModel>> GetAuthorPage([FromQuery]AuthorResourceParameters parameters)
         {
-           var authors = await RepositoryWrapper.Author.GetAllAsync();
-            var authorsPage = authors.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+            var authors = await RepositoryWrapper.Author.GetAllAsync();
+            if(!string.IsNullOrEmpty(parameters.BirthPlace))
+            {
+                authors = authors.Where(x => x.BirthPlace == parameters.BirthPlace).AsEnumerable();
+            }
+
+            int totalCount = authors.Count();
+            var authorsPage = authors.AsQueryable().OrderBy(parameters.SortBy).Skip((parameters.PageNumber - 1) * parameters.PageSize)
                     .Take(parameters.PageSize);
-           var authorViewModels = Mapper.Map<IEnumerable<AuthorViewModel>>(authorsPage);
-           return authorViewModels.ToList();
+            var authorViewModels = Mapper.Map<IEnumerable<AuthorViewModel>>(authorsPage);
+            return new PagedList<AuthorViewModel>(authorViewModels.ToList(), totalCount, parameters.PageNumber, parameters.PageSize);
         }
     }
 }
