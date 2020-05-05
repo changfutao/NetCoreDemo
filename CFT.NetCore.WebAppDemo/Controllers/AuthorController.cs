@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CFT.NetCore.WebAppDemo.Entities;
+using CFT.NetCore.WebAppDemo.Entities.Author;
 using CFT.NetCore.WebAppDemo.Models;
 using CFT.NetCore.WebAppDemo.Repository;
 using CFT.NetCore.WebAppDemo.ViewModels;
@@ -79,6 +80,21 @@ namespace CFT.NetCore.WebAppDemo.Controllers
 
             var authorViewModel = Mapper.Map<AuthorViewModel>(author);
             return authorViewModel;
+        }
+
+        /// <summary>
+        /// 获取作者分页数据 
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetAuthorPage")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AuthorViewModel>>> GetAuthorPage([FromQuery]AuthorResourceParameters parameters)
+        {
+           var authors = await RepositoryWrapper.Author.GetAllAsync();
+            var authorsPage = authors.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize);
+           var authorViewModels = Mapper.Map<IEnumerable<AuthorViewModel>>(authorsPage);
+           return authorViewModels.ToList();
         }
     }
 }

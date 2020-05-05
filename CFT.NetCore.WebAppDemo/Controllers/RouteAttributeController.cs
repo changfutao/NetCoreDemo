@@ -13,7 +13,7 @@ namespace CFT.NetCore.WebAppDemo.Controllers
     public class RouteAttributeController : ControllerBase
     {
         [Route("GetOne")]
-        public Task<RouteOneDto> GetOne(RouteOneDto routeOne)
+        public Task<RouteOneDto> GetOne([FromQuery]RouteOneDto routeOne)
         {
             return Task.FromResult<RouteOneDto>(routeOne);
         }
@@ -24,7 +24,7 @@ namespace CFT.NetCore.WebAppDemo.Controllers
         }
         [Route("GetStr")]
         [HttpGet]
-        public string GetStr(string str)
+        public string GetStr([FromQuery]string str)
         {
             return str;
         }
