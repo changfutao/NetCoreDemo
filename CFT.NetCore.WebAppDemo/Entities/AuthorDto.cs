@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CFT.NetCore.WebAppDemo.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace CFT.NetCore.WebAppDemo.Entities
         [Required(ErrorMessage ="必须提供出生地")]
         [MaxLength(ErrorMessage ="出生地长度必须等于40个字符")]
         public string BirthPlace { get; set; }
+        [NoSpace]
         [EmailAddress(ErrorMessage ="邮箱格式不正确")]
         public string Email { get; set; }
     }

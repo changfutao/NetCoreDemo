@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CFT.NetCore.WebAppDemo.Entities;
+using CFT.NetCore.WebAppDemo.Filters;
+using CFT.NetCore.WebAppDemo.Helpers;
 using CFT.NetCore.WebAppDemo.Models;
 using CFT.NetCore.WebAppDemo.Repository;
 using CFT.NetCore.WebAppDemo.ViewModels;
@@ -30,10 +32,36 @@ namespace CFT.NetCore.WebAppDemo.Controllers
         /// </summary>
         /// <param name="authorDto"></param>
         /// <returns></returns>
+        [ModelValidation]
         [Route("CreateAuthorAsync")]
         [HttpPost]
         public async Task<ActionResult> CreateAuthorAsync(AuthorDto authorDto)
         {
+            ResultModel resultModel = new ResultModel();
+            resultModel.Status = 200;
+            #region 模型验证
+            //验证数据注解是否成功
+            //if(!ModelState.IsValid)
+            //{
+            //    resultModel.ErrorMessages = new List<ErrorMessage>();
+            //    foreach (var key in ModelState.Keys)
+            //    {
+            //        var state = ModelState[key];
+            //        if (state.ValidationState.ToString().ToLower() != "valid")
+            //        {
+            //            resultModel.Status = 500;
+            //            foreach (var error in state.Errors)
+            //            {
+            //                ErrorMessage errorMessage = new ErrorMessage();
+            //                errorMessage.ErrorName = key;
+            //                errorMessage.ErrorInfo = error.ErrorMessage;
+            //                resultModel.ErrorMessages.Add(errorMessage);
+            //            }
+            //        }
+            //    }
+            //    return new JsonResult(resultModel);
+            //} 
+            #endregion
             var author = Mapper.Map<Author>(authorDto);
 
             RepositoryWrapper.Author.Create(author);
@@ -44,7 +72,7 @@ namespace CFT.NetCore.WebAppDemo.Controllers
                 throw new Exception("创建资源author失败");
             }
 
-            return new JsonResult(new { status = 200 });
+            return new JsonResult(resultModel);
         }
 
         /// <summary>
