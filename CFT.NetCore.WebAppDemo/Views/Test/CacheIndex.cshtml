@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CacheIndex</title>
+</head>
+<body>
+    <button id="btn" type="button">点击请求</button>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var btn = document.querySelector('#btn');
+        btn.onclick = function () {
+            axios({
+                method: 'get',
+                url: 'http://localhost:5000/api/Author/GetAuthorsAsync',
+            }).then(data => {
+                console.log(data)
+            });
+        }
+    </script>
+</body>
+</html>

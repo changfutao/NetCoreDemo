@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CFT.NetCore.WebAppDemo.Models;
 using Microsoft.AspNetCore.Routing;
+using CFT.NetCore.WebAppDemo.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CFT.NetCore.WebAppDemo
 {
@@ -32,6 +34,8 @@ namespace CFT.NetCore.WebAppDemo
             services.AddSingleton<IOperationSingleton, Operation>();
             #endregion
 
+            services.AddSingleton<IHashFactory, HashFactory>();
+
             //注入EFCore服务
             services.AddDbContext<EFContext>(options =>
             {
@@ -45,7 +49,14 @@ namespace CFT.NetCore.WebAppDemo
             services.AddAutoMapper(typeof(Startup));
 
             //注入WebApi服务
-            //services.AddControllers();
+            services.AddControllers(options => 
+            {
+                //添加缓存配置
+                options.CacheProfiles.Add("Default", new CacheProfile()
+                { 
+                    Duration=60
+                });
+            });
 
             //注入MVC
             services.AddRazorPages();

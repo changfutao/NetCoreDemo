@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using Microsoft.Net.Http.Headers;
 
 namespace CFT.NetCore.WebAppDemo.Controllers
 {
@@ -22,13 +24,16 @@ namespace CFT.NetCore.WebAppDemo.Controllers
     {
         public IMapper Mapper { get; }
         public IRepositoryWrapper RepositoryWrapper { get; }
+        public IHashFactory HashFactory { get; }
         public AuthorController(
             IRepositoryWrapper repositoryWrapper,
-            IMapper mapper
+            IMapper mapper,
+            IHashFactory hashFactory
             )
         {
             Mapper = mapper;
             RepositoryWrapper = repositoryWrapper;
+            HashFactory = hashFactory;
         }
         /// <summary>
         /// 创建资源
@@ -83,13 +88,22 @@ namespace CFT.NetCore.WebAppDemo.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("GetAuthorsAsync")]
+        //Http缓存 Duration绝对过期时间
+        //[ResponseCache(Duration =60,Location =ResponseCacheLocation.Any)]
+        [ResponseCache(CacheProfileName = "Default")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorViewModel>>> GetAuthorsAsync()
         {
             var authors = await RepositoryWrapper.Author.GetAllAsync();
             authors = authors.OrderBy(x => x.Name);
-
+            var entityHash = HashFactory.GetHash(authors);
+            Response.Headers[HeaderNames.ETag] = entityHash;
+            if (Response.Headers.TryGetValue(HeaderNames.IfModifiedSince, out var requestETag) && entityHash == requestETag)
+            {
+                return StatusCode(StatusCodes.Status304NotModified);
+            }
             var authorViewModelList = Mapper.Map<IEnumerable<AuthorViewModel>>(authors);
+            Thread.Sleep(5000);
             return authorViewModelList.ToList();
         }
 

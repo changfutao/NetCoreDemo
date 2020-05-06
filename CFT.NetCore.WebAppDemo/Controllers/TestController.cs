@@ -41,5 +41,10 @@ namespace CFT.NetCore.WebAppDemo.Controllers
             };
             return View(operationViewModel);
         }
+
+        public IActionResult CacheIndex()
+        {
+            return View();
+        }
     }
 }
